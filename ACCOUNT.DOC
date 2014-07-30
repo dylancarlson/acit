@@ -1,0 +1,263 @@
+
+
+
+                  DragCit 3.11.xx Accounting-2 Documentation
+
+
+                                 INTRODUCTION 
+      
+      
+          Welcome  to the world of simplified Citadel Accounting. Because
+     so  many people  felt the  old accounting  system of  Citadel was to
+     difficult to setup/use/understand, a new system has been developed. 
+      
+          This  new system is easier to understand in that you don't have
+     to deal with costs per kilobyte, etc. This system works on the basis
+     of  time per  day. This  makes setup much  easier for  the sysop and
+     understanding  of how much time he has  left on the system easier to
+     understand for the user.  
+      
+          While  you gain this simplicity in use, you also keep the power
+     that  was  available in  the old  accounting  system. You  can limit
+     different  groups to different  days and hours of  the day for usage
+     and  you can also give different  groups times when their accounting
+     is  disabled. For example people in  your "Advanced Users" group can
+     call with unlimited time from 12am to 9am, while people in your NULL
+     group only have unlimited time from 12am to 7am. 
+      
+      
+                                   PRIORITY 
+      
+      
+          A  new feature not  found in the  previous accounting is "group
+     priority". This feature has many uses. It will allow you to, in your
+     GRPDATA.CIT  file,  give certain  groups  priority over  others. For
+     example,  you  would give  your NULL  group a  priority of  1 (least
+     improtant) and you would give your "access" group a higher priority,
+     and  your "advanced users" group and even higher priority. If a user
+     was  in all 3  groups, Cit would  only look at  the "advanced users"
+     group because it has the highest priority. Another good use for this
+     is  if you have a group for twits  or users who you want to limit to
+     less time than the other users while still having access to the same
+     groups  they have, you  could set this group  with priority over all
+     the  other access groups and the user  would be limited to what that
+     group would allow. 
+      
+          If  two  or more  groups  have the  same  priority, and  a user
+     belongs to two or more of them, Cit will look at the groups and make
+     a  compromise, giving them the best deal that is can from combinding
+     the best of all the groups with the highest priority. 
+      
+          If  you do not make  an entry in GRPDATA.CIT  for a group, it's
+     priority  will default  to zero.  It is  neccesary that  you make an
+     entry for your NULL group. 
+      
+                          MULITIPLYERS AND TRANSFERS 
+      
+      
+          With  this system  of accounting  you can  allow users "special
+     rates"  for transfers. For example, you can  allow a user to only be
+
+
+
+
+                                   Page - 1
+
+
+
+
+
+                  DragCit 3.10.xx Accounting-2 Documentation
+
+
+     charged  for 1/2 the  time an upload  took or you  could give them a
+     bonus of EXTRA time on the board as a "thank-you" for uploading. 
+     This is all done through the #DL_MULT and #UL_MULT keywords.  
+      
+     Examples of values and results are: 
+      
+          VALUE     RESULT
+            -2      Charge them for 2* what the transfer took 
+            -1      Charge them for how long the transfer took 
+           -.5      Charge them for 1/2 what the transfer took 
+             0      Charge/credit nothing (ignore the transfer) 
+            .5      Give them 1/2 the time the transfer took EXTRA 
+                    Here you must remeber that during a transfer, 
+                    time "stands still", but after the transfer, the 
+                    time took is multiplied by the multiplyer 
+                    and the result is added to the time in their 
+                    account before the transfer... so... 
+                    ACC_BAL = (ACC_BAL + (TRNS_TIME * MULT) ); 
+                    is the formula cit uses to calculate your 
+                    balance after a transfer. 
+                     
+                                        
+                                        
+                                SETTING IT UP
+      
+      
+          In your CONFIG.CIT you will find some keywords you must set. To
+     activate accounting set #ACCOUNTING to 1.  
+      
+          You  must give unlogged  users some time on  the system, so you
+     can set that with #UNLOGGEDBALANCE followed by the number of minutes
+     you wish to allow. 
+      
+          You  also must give new users a time limit on their first call.
+     This  is set with #NEWBAL followed by the number of minutes you wish
+     to allow them.  
+      
+          Last, in CONFIG.CIT you must set an overall maximum for time on
+     system.  This is set  with #MAXBALANCE followed  by the mosttime you
+     want  any group to  allow. (It is  suggested that this  is set to an
+     outragous time. The only time it will be used is if a users priority
+     group  does not have an entry. Meaning they are not in any groups in
+     GRPDATA.CIT.)  But,  remember, it  must be  higher  than any  of the
+     #MAX_BAL keywords in GRPDATA.CIT. 
+      
+          In  the GRPDATA.CIT file, you need to set each of the following
+     for all groups you desire accounting to look at. 
+      
+          #GROUP         <group name IN QUOTES> 
+      
+          #DAYS          <days on which this group can call> 
+               SUN MON TUE WED THU FRI SAT and ANY are all valid here. 
+      
+          #HOURS         <hours in which this group can call> 
+
+
+
+                                   Page - 2
+
+
+
+
+
+                  DragCit 3.10.xx Accounting-2 Documentation
+
+
+               0-23 valid, or ANY for any time. 
+      
+          #SPECIAL       <hours in which this group is unlimited> 
+               0-23 valid, or ANY for always. 
+      
+          #DAY_INC       <how many minutes users will be given  
+                          every 24 hours.>
+      
+          #MAX_BAL       <the MAXIMUM minutes this group can have online
+                          per day.>
+      
+          #PRIORITY      <see section on priorities.)
+               any number from 0-10^23 (10 to the 23rd power). 
+      
+          #UL_MULT       multiplyer for uploads
+                         (see section on multipliers)
+          #DL_MULT       multiplyer for downloads
+                         (see section on multipliers)
+      
+      
+          Following is a sample enter in your GRPDATA.CIT file:
+      
+          #GROUP    "null"
+          #DAYS     mon tue wed thu fri sat sun
+          #HOURS    any
+          #SPECIAL  0 1 2 3 4 5 6 7
+          #DAY_INC  60
+          #MAX_BAL  120
+          #PRIORITY 1
+          #UL_MULT  0
+          #DL_MULT -1
+      
+          This  entry will allow  members of group "null"  to call on any
+     day at any time and from midnight till 7:59 they have unlimited call
+     time.  After  24  hours have  past  since  their first  call  of the
+     previous  day call,  they will recieve  60 minutes,  and the maximum
+     their  balance can  reach is  120 minutes.  (If they  don't call for
+     several days their time will compound to a maximum of 120.) 
+      
+          If the user uploaded a file taking 5 minutes, at the end of the
+     transfer,  they would still have the  same time left they did before
+     the  transfer. If the user downloaded  a file taking 5 minutes, they
+     would have 5 minutes less in their account after the transfer. 
+      
+          If  a user  does a  download that  takes more  than their daily
+     limit,  it will allow it, but, they  will be given negative time and
+     will  have to wait for time to compound to a number of minutes above
+     zero before they can login again. 
+      
+                                        
+                                        
+                                        
+                                        
+
+
+
+                                   Page - 3
+
+
+
+
+
+                  DragCit 3.10.xx Accounting-2 Documentation
+
+
+                             FOR MORE INFORMATION 
+      
+          This  accounting  system was  developed  by Joe  Broxson  at C'
+     Hackers  Forum, Seattle (Node Address: CHF).  If you need more help,
+     you  can contact  him via  DCnet-mail to  him @  CHF or   by calling
+     CHF (206)782-6669 (PCPable). 
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                   Page - 4
+
+

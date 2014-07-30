@@ -1,0 +1,72 @@
+#   ACit Makefile
+
+ALL : CTDL.EXE
+                 echo -- >> err
+
+.c.obj:
+                 if exist vrsn.obj del vrsn.obj
+                 cl $(CFLAGS) $(DEFS) $*.c >> err
+
+ACCT.OBJ : ACCT.C    CTDL.H GLOB.H
+APLC.OBJ : APLC.C    CTDL.H GLOB.H APLC.H APST.H
+CFG.OBJ  : CFG.C     CTDL.H KEY.H GLOB.H
+CRON.OBJ : CRON.C    CTDL.H KEY.H GLOB.H
+CTDL.OBJ : CTDL.C    CTDL.H KEY.H GLOB.H
+EDIT.OBJ : EDIT.C    CTDL.H GLOB.H
+FILE.OBJ : FILE.C    CTDL.H GLOB.H
+FMT.OBJ  : FMT.C     CTDL.H GLOB.H
+GRPH.OBJ : GRPH.C    CTDL.H GLOB.H
+INFO.OBJ : INFO.C    CTDL.H GLOB.H
+INFO2.OBJ : INFO2.C  CTDL.H GLOB.H
+INPUT.OBJ : INPUT.C  CTDL.H GLOB.H
+LIB.OBJ   : LIB.C    CTDL.H GLOB.H
+LOG.OBJ   : LOG.C    CTDL.H GLOB.H
+LOG2.OBJ  : LOG2.C   CTDL.H GLOB.H
+LOG3.OBJ  : LOG3.C   CTDL.H GLOB.H
+MDM.OBJ   : MDM.C    CTDL.H GLOB.H
+MISC.OBJ  : MISC.C   CTDL.H GLOB.H
+MISC2.OBJ : MISC2.C  CTDL.H GLOB.H
+MSG.OBJ   : MSG.C    CTDL.H KEY.H GLOB.H
+MSG2.OBJ  : MSG2.C   CTDL.H GLOB.H
+MSG3.OBJ  : MSG3.C   CTDL.H GLOB.H
+NET.OBJ   : NET.C    CTDL.H KEY.H GLOB.H
+OUT.OBJ   : OUT.C    CTDL.H GLOB.H
+PORT.OBJ  : PORT.C   CTDL.H GLOB.H
+ROOM.OBJ  : ROOM.C   CTDL.H GLOB.H
+ROOM2.OBJ : ROOM2.C  CTDL.H GLOB.H
+SYS.OBJ   : SYS.C    CTDL.H GLOB.H
+SYSG.OBJ   : SYSG.C    CTDL.H GLOB.H
+SYSH.OBJ   : SYSH.C    CTDL.H GLOB.H
+TIME.OBJ  : TIME.C   CTDL.H GLOB.H
+UPDNLD.OBJ : UPDNLD.C  CTDL.H GLOB.H
+#  WC.OBJ    : WC.C     PROT.H
+WIND.OBJ  : WIND.C   CTDL.H GLOB.H
+XLATE.OBJ : XLATE.C
+ZIP.OBJ   : ZIP.C    CTDL.H GLOB.H
+
+
+VRSN.OBJ  : VRSN.C
+    cl $(CFLAGS) $(DEFS) $*.c >> err
+
+
+SER.OBJ   : SER.ASM
+    masm /W2 /mx SER.ASM;
+
+#SWAPL.OBJ  : SWAP.ASM
+#    masm /W2 /D_Large /Mx swap.asm, swapl.obj;
+#tasm /w2 /m2 /mx /JMASM51 /zi /z /l /D_Large swap
+
+CTDL.EXE : \
+    ctdl.obj ser.obj acct.obj aplc.obj cfg.obj cron.obj\
+    edit.obj fmt.obj file.obj grph.obj info.obj info2.obj input.obj\
+    lib.obj log.obj log2.obj mdm.obj log3.obj misc.obj misc2.obj\
+    msg.obj msg2.obj msg3.obj net.obj out.obj port.obj room.obj\
+    room2.obj sys.obj sysg.obj sysh.obj time.obj updnld.obj\
+    wind.obj xlate.obj zip.obj\
+    vrsn.obj
+    link /stack:16288/NOI/E/F/SE:256/M @response
+   copy ctdl.exe e:\cit
+   copy history e:\cit\help\history.hlp
+   copy ctdl.exe c:\cit
+   copy history c:\cit\help\history.hlp
+

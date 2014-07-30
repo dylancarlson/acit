@@ -1,0 +1,123 @@
+    __                __
+   /  )              /  )  _/_    Version 3.11.00
+  /  / __  __.  _,  /    o /      Distributed from Seattle, Wa 
+ /__/_/ (_(_/|_(_) (__/ <_<__     NETWORK.DOC
+                /|
+               |/
+_______________________________________________________________________________
+
+    I did not write this and do not vouch for its accuracy, but it might
+be better than no doc. 
+
+    Peter "The Dragon" Torkelson
+    SysOp: Honalee
+_______________________________________________________________________________
+ 
+                              By Z'ton
+ 
+                        Setting up a node account.
+ 
+        To net two boards with each other both boards need an account on the
+other.  Log in as a new user with the initals and password the board will
+use.  The new name should exactly match the other boards name.  Terminate.
+Userlog edit them and make that a NODE account.  Also give them the groups
+needed to get into any room they want to network.
+
+   -->  BOTH BBS' MUST HAVE A NODE ACCOUNT FOR THE NET TO FUNCTION!  <--
+
+                        Setting up the files to net.
+
+                   Editing the NODES your system knows.
+
+        Edit the file NODES.CIT with any editor that will save to a normal
+text file.  In this file is contained all the information on all the nodes
+that the board nets with.  The format is:
+
+#NODE           "Nodename"      "Region"   - the name and region of the net
+#PHONE          "###-###"                  - a number to dial for netting
+#BAUD           1200                       - the baud rate 300 1200 or 2400
+#DIAL_TIMEOUT   30                         - # seconds to wait before a fail
+#REDIAL         3                          - # time to retry before skipping
+#LOGIN          W "als:" S "inits;pass"    - what to do on logging in
+#WAIT_TIMEOUT   15                         - # seconds Wait will wait
+#PROTOCOL       "Zmodem"                   - Name of protocol to use for net.
+#MAIL_TMP       "mail\\Nodename.mil"       - Filename for mail routing
+#EXPIRE         25                         - # days before msgs are expired.
+#GROUP          "MyGroup"       "YourGroup"- group names to net across
+#GROUP          "grp"           "plppl"    - as many as you need
+#ROOM           "MYROOM"        "YOURROOM" - Name of room to net.
+#ROOM           "rm2"           "rm2"      - as many as are needed.
+
+The #NODE and region need to match thiers, the node also needs to
+  match the board's account name.
+#LOGIN has 2 sub-commands:
+   W "something"    Wait for the string "something" to come in through the
+     modem.
+   S "oogla"        Send the sring "oogla" out the modem.
+#MAIL_TMP has a path for all routed mail to go into.  Creating a
+  mail subdirectory is a good idea.  All \\ is is a single \ by standard C
+  escape codes.
+#ROOM has the name of the room to net on YOUR BOARD then THIER BOARD.
+  There can be as many #ROOM lines as you need.
+  However, do not begin netting more than 4 or 5 rooms at one time or the
+  transfer will often time out and abort.  Once a room has netted once, it is
+  safe to add others.
+
+   -->  THERE MUST BE A NODE ACCOUNT AND ENTRY FOR YOU ON THER BBS!  <--
+
+                Editing the mail routing and board ailiases.
+
+        Edit the file ROUTE.CIT.  The format is:
+#ALIAS "src"    "Sirius Cybernetics"  - the short name for mail netting.
+#ROUTE "Sirius Cybernetics"  "Dragon's Caverns" - Send mail for Sirius
+                                                   Cybernetics thruoguh the
+                                                   board Dragon's Caverns.
+#ALIAS is a short name to mail through.  Rather than typing:
+   .ee<CR>Mad Lou @ Sirius Cybernetics    you could do:
+   .ee<CR>Mad Lou @ SRC
+#ROUTE is for mail routing.  Any mail for the board 'sirius
+  cybernetics' would be netted through 'dragon's caverns'.  This is so if the
+  board 'sirius cybernetics' does not net with you then mail can gget through,
+  even if through several boards.
+     This file is optional and simply makes sending network mail easier, and
+makes netting mail through other boards possible.
+ 
+                CRON events:  An explaition.
+
+     A CRON event is a command that Citadel will run every so often, by the
+commands in the CRON.CIT file.  This file controls automatic networking, and
+any special batch programs you may incluse to play with any certian file on
+your system (for instance, have the system post an update of the status every
+24 hours.).  The CRON.CIT file controls these commands.  The Citadel checks
+about every 3 minutes to see if anyhting is going on.  If anything has
+happened in the last 3 minutes, Citadel continues to wait.  But if nothing has
+happened in 3 minutes it checks it's cron file.  If there is an event to run,
+Citadel will run the event.  If not, it re-sets the modem and nothing else
+happens.
+
+        Editing the CRON events.  Cron file format:
+
+#DO          NETWORK    "Nodename"  - command to do
+#HOURS       ANY                    - hours event can be run
+#DAYS        ANY                    - days of week event can be run
+#REDO_TIME   60                     - minutes to wait if event succeeds
+#RETRY_TIME  0                      - minutes to wait if event failed
+
+The #DO commands supports two commands:
+  NETWORK   "Nodename"   that starts a network to the bbs with the
+  nodename of "Nodename".
+  SHELL_1  "dos_command"   will run the command in quotes at dos.  Batch
+  files that do odd thigs can be put here.
+#HOURS  ANY means that the event will be done at ANY hour of the day, the
+  command #HOURS 1 2 3 4 5 6 7 8   will let the event run during the first 8
+  hours of the morning.  (1 - 8 AM)  This uses standard millitary notation,
+  11:00 AM is 11, while 11:00 PM is 23.
+#DAYS  ANY will allow the event to run any day of the week.  #DAYS Sat Sun
+  will allow an event to run on a weekend.  Valid entries are Sat Sun Mon Tue
+  Wed Thu Fri  and ANY .
+#REDO_TIME  is simply the number of minutes the system will wait before doing
+  the event again in case of a success.
+#RETRY_TIME is the number of minutes Citadel will wait before trying an event
+  if the event failed.  0 will cause Citadel to redial fairly quickly.
+
+

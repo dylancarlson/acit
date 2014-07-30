@@ -1,0 +1,52 @@
+    __                __
+   /  )              /  )  _/_    Version 3.11.00
+  /  / __  __.  _,  /    o /      Distributed from Seattle, Wa 
+ /__/_/ (_(_/|_(_) (__/ <_<__     SETUP.DOC
+                /|
+               |/
+_______________________________________________________________________________
+
+        This document is being created even as you read it. It may not be 
+compleat when you recive it.  Someday it will be finished. 
+
+_______________________________________________________________________________
+MAIN SYSTEM:
+ 
+        Read this once through before you try it.
+        
+        First thing to do is make a directory that you want the BBS files to 
+be in on your HardDrive. If you dont have a hard drive, go get one. (this 
+thing takes up a lot of space, and the overlays run slow off floppys, it is
+not recomended). 
+        Often the directory is called \CIT. This directoy is known as the 
+"HOMEPATH". This name is used in the config.cit file, so you should remeber 
+it. 
+        Then unzip all the files into that directory. Leave the HELP.ZIP
+file ziped for a second. Under that directoy you need to make a "HELPPATH"
+directory. Commonly \CIT\HELP. Unzip help.zip to this directory. 
+        
+        Now you need to make the other paths that citadel will look for. 
+These are "TEMPPATH", "APPLICATION", "MSGPATH", "TEMPPATH", and "ROOMPATH".
+Suggested ones are:
+ 
+\CIT            HOMEPATH and MSGPATH
+\CIT\HELP       HELPPATH
+\CIT\ROOMS      ROOMPATH
+\CIT\TEMP       TEMPPATH
+\CIT\APLIC      APPLICATION
+
+        NOTE: no path may be a root directory. If you want to use a ram disk, 
+for your temppath (highly recomended if you are going to network) you need to
+make a directory on that disk to use.
+
+        Edit the CONFIG.CIT file with a TEXT EDITOR. It must be saved as a
+dos text file, not some funny format like Nerd Perfect likes to use. This 
+file contains the confguration of your system, like its name. Read it and
+change it to suit you. 
+
+        Run the CTDL.EXE program. It will create the room file, message base,
+and all that. Then create yourself an account. The sysop function are accessed
+through the F6 key. 
+
+
+        GOOD LUCK!

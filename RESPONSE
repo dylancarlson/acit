@@ -1,0 +1,13 @@
+/BATCH /NOI /SE:256 /M ctdl +
+ser acct (aplc cron) +
+(edit msg3) fmt (file) grph +
+(info info2) input (sys) (sysg) (sysh) lib +
+log (log2) mdm (log3) misc (misc2) +
+(net_in) (net_out) (netgmsg) (netpmsg) +
+(netnode) (netroute) +
+msg msg2 out port (cfg) room +
+(room2) time (updnld) vrsn xlate (zip) wind 
+ctdl /stack:16288 /E /F
+ctdl
+spawnl;
+

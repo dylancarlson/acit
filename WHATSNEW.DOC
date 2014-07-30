@@ -1,0 +1,224 @@
+    __                __
+   /  )              /  )  _/_    Version 3.11.00
+  /  / __  __.  _,  /    o /      Distributed from Seattle, Wa
+ /__/_/ (_(_/|_(_) (__/ <_<__     WHATSNEW.DOC
+                /|
+               |/
+ ------ 3.11.00 --------04/17/90--------------------------------------------
+        * Bug fixes
+          Many reported bugs have been fixed in this release, to many to 
+          list here even if I remebered them all.
+        
+        * #TWIT_FEATURES
+          Just something from the features department to keep things from
+          getting too boring. See the new CONFIG.CIT. Has Titles as well
+          as surnames, borders, and message nyms.
+ 
+        * Modem code
+          The serial IO package that DragCit has been using had a lot
+          of problems, this was causing interupts to be trashed in 
+          the previous versions. This has been fixed.
+ 
+        * Turbo C
+          DragCit is now compiled with Turbo C.
+ 
+        * Source Code
+          With the 3.11.00 Beta release source code will be made avalible.
+ 
+        * Applications
+          The application interface has been reworked. In the place of
+          userdat?.apl files there is now an output.apl. This file's 
+          format is flexible, allowing changed to it w/o messing up 
+          existing applications. However, application designed for use
+          with 3.10.05 and below will not work with this version. 
+          Also if your aplication is a batch file you must use a $ as
+          the first character to tell DragCit to load COMMAND.COM. 
+          Failing to do this will cause your system to crash when it 
+          tries to run the .BAT file as an EXE file. This saves memory
+          and time when running EXEs and COMs.
+ 
+        * ANSI 
+          Used a little more here and there..
+ 
+        * Infolines
+          Infolines now show when you goto a room w/o a room description.
+ 
+ ------ 3.10.05 --------06/16/89--------------------------------------------
+        * Internal cleanup 
+          Much closer to finishing the fist level of cleanup. This is
+          very good, it should reduce the number of random errors a lot
+          and make the software more reliable.
+ 
+        * 24K more in a shell!
+          Or there abouts, I only started keeping track a little after
+          3.10.04 so that # may be a little off (+/- 2K).  More overlays
+          as you may have guessed. (related to message and log code.)
+ 
+        * Confugure, and Userlog Edit menus
+          These menus are rather a new idea in the interface, see what you
+          think of them, and any suggested changes to it.
+ 
+        * Chat
+          You can now pull people into chat from any place that gets a 
+          string, or that is a get Yes No prompt. This is sort of a nice
+          trick if you want to chat someone before they are logged in.
+ 
+          If the remote has ansi on, then chat colors are transmited to
+          them as well. 
+ 
+          Word wrap, no more hitting returns!
+ 
+        * .Known # of Messages Rooms
+          New known rooms display type:
+          room>                 234 messages,  23 new, (mail)
+          Play with it. Also can be combined with Verbose. 
+ 
+ ------ 3.10.04 --------06/06/89--------------------------------------------
+        * Internal cleanup 
+          We have been spending a lot of time cleaning up the internals
+          of DragCit. Still a lot to do, but it is hoped that this version
+          will prove to have less of those unexplanable crashes. 
+ 
+        * Interupt traping
+          Tradewars and other applications which mangle interups will run
+          with this version. TW was nuking the overlay managers interupt,
+          with perdictable results.
+ 
+        * Pause on Full screen
+          Pause every x lines, mostly for console and 9600 users, others 
+          might also find it useful. (it was mainly installed beacuse I
+          could not read my system w/o it on a 20Mhz AT clone)
+ 
+ ------ 3.10.03 --------04/28/89--------------------------------------------
+        * Bug Fixes:
+          ZIP reader bug fixed
+          Room info-line bug fixed
+ 
+        * #DIRECTORY
+          You can specify in external.cit directorys or groups of
+          directorys that can NOT be made into directory rooms 
+          when on remote. For example:
+          #DIRECTORY  D:*
+          Will allow no directorys to be made on D:.
+ 
+        * Hidden Groups
+          When renaming a group you can make it hidden. If you are remote 
+          a hidden group can not be seen, or accessed in any way unless
+          you are a member of that group. If on console you will see them
+          in the .al and can rename them to undo it as needed.
+ 
+        * Hallway descriptions
+          Use .shr and it will ask you for it.
+ 
+        * Screen Saved during shell/applications
+ 
+ ------ 3.10.02 --------04/18/89--------------------------------------------
+        * Twited and Moderated messages
+          These will not go accrost the net if the node you are neting
+          with is not a sysop.
+          If the node is a sysop it will, with moderated/twited status
+          perserved.
+ 
+        * Bug fixes to Userlog Edit
+ 
+        * ETC.EXE
+          A small program to edit your ETC.DAT. Currently lets you
+          change any of the modem-related options. Other items on its
+          menu do not function. (notice, this program will be updated
+          with each new version. You must use the ETC.EXE that comes
+          with the version you are running.)
+ 
+        * Ability to lock surnames on user by user basis
+ 
+        * Revamped baud detect code
+          Should solve some problems with verbose responses. 
+          If someone calls while in console mode going to modem mode
+          (F5) will log you out and let them on. (used to only work with
+          Numeric, now works with the others as well.)
+ 
+ ------ 3.10.01 --------04/14/89--------------------------------------------
+        * Misc bug fixes.
+        * Faster modem IO.
+ 
+ ------ 3.10.00 --------04/01/89--------------------------------------------
+        * #PRIVATE
+          #private will now do the following:
+          0 open system
+          1 message to sysop
+          2 message to sysop drop carrier
+          3 enter user non-verified and ask name number surname(if configed)
+          4 same as 3 with drop carrier
+          5 newuserapp
+          6 newuserapp drop carrier
+          7 enter user non-verified and newuserapp
+          8 same as 7 with drop carrier
+          9 closed, tells them so in a blurb "closesys.blb"
+          10 same as 9 with drop carrier.
+ 
+        * CHAT REQUEST
+          In the stat line you will now see the folowing in the chat box:
+ 
+                      User requested chat             User did not
+          Chat On     "RCht"                          "Chat"
+          Chat Off    "rcht"                          "    "
+ 
+        * .AIDE MOVEFILE
+          Aide command to move a file from one directory room to another.
+ 
+        * CVT.EXE and 30TO31.BAT
+          CVT is a program that will upgrade the datafiles from one version 
+          to the next. It is used with batchfiles wich feed it instructions.
+ 
+          30TO31 is the batch file to convert from DragCit 3.0x.x to 
+          DragCit 3.10.xx. 
+ 
+          In any further releases the two middle digets will indicate either
+          drastic changes or the need of a convert batchfile. (3.XX.??, the
+          XX)
+ 
+          Of course you will need to reconfig after the conversion, WICH YOU 
+          SHOULD DO AFTER GETTING ANY NEW VERSION (hint, hint)
+ 
+        * ACCOUNTING
+          Due to screams and pleas for a simple and understanable accounting 
+          system, one has been writen (by Joe of C' Hackers Forum). It is 
+          based on the minute in the place of the Credit, and comes with 
+          documentation. (ACCOUNT.DOC)
+ 
+        * ANSI
+          Your ANSI status is remebered from call to call.
+ 
+        * AUTO-HALL
+          This feature (toggable by user) will take you to the next hall 
+          (just like hitting a '>') every time you get to a window room. 
+          It is sort of like being in a sorted maintance hall. (or that is 
+          the desired efect)
+ 
+        * ROOM INFO-LINE
+          If you now do a .Known [...] you will get the name of the room 
+          plus a short (80 character) description. Sort of like an info-file.
+ 
+          Example:
+ 
+          Lobby>                 - First room in BBS
+          Mail>                  - Leave E-Mail here
+          Aide>>                 - Room for the AIDES, also a window
+          ext....
+ 
+        * FILE EXPANSION
+          A number of the data files have been expanded to make room for
+          features to come. Like hall descriptions and all sorts of odd
+          things.
+ 
+        * AIDEMESSAGE GROUPING
+          All messages in the aide room from one event are now grouped into
+          one message. (only one message of network errors, or for group
+          globals, ext.)
+ 
+        * THIS FILE
+          This file will come with all new version produced by me 
+          (The Dragon) and will be keep up-to-date as much as posible. 
+          There are some things new in this version that have not been 
+          mentioned, mostly beacuse I forgot what they were before I 
+          started keeping this file.
+ 
